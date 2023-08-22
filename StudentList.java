@@ -1,6 +1,4 @@
-import java.io.*;
-import java.text.*;
-import java.util.*;
+
 
 public class StudentList {
 	public static void main(String[] args) {
@@ -9,18 +7,24 @@ public class StudentList {
 			System.out.println("please provide an argument!");
 			return;
 		}
+		//file name
+		String fileName="students.txt";
+		//StudentOperatin class containnig different method
+		StudentOperation studentOperation=new StudentOperation();
+		//fileReadder class for reading file named "fileName"
+		FileReaderS filereader= new FileReaderS(fileName);
 		System.out.println("Loading data ...");
 		// Check arguments
 		String option = args[0];
 		try {
-			String data = fileReader();
+			String data = filereader.fileReader();
 			String[] students = data.split(",");
 			switch (option) {
 				case "a":
-					printAllStudent(students);
+				studentOperation.printAllStudent(students);
 					break;
 				case "r":
-					randomStudent(students);
+				studentOperation.randomStudent(students);
 					break;
 				case "+":
 					if (args.length < 2) {
@@ -28,7 +32,7 @@ public class StudentList {
 						System.out.println("Data Loaded.");
 						return;
 					}
-					addStudent(data, args[1]);
+					studentOperation.addStudent(data, args[1],fileName);
 					break;
 				case "?":
 					if (args.length < 2) {
@@ -36,71 +40,18 @@ public class StudentList {
 						System.out.println("Data Loaded.");
 						return;
 					}
-					searchStudent(students, args[1]);
+					studentOperation.searchStudent(students, args[1]);
 					break;
 				case "c":
-					countStudent(data);
+				studentOperation.countStudent(data);
 					break;
 				default:
 					System.out.println("Sorry invalid argument!");
 					break;
 			}
 		} catch (Exception e) {
+			System.out.println("An error occour");
 		}
 		System.out.println("Data Loaded.");
-	}
-
-	public static String fileReader() throws IOException {
-		BufferedReader fileReader = new BufferedReader(
-				new InputStreamReader(
-						new FileInputStream("students.txt")));
-		String data = fileReader.readLine();
-		fileReader.close();
-		return data;
-	}
-
-	public static void printAllStudent(String[] students) {
-		for (String student : students) {
-			System.out.println(student.trim());
-		}
-	}
-
-	public static void randomStudent(String[] students) {
-		Random random = new Random();
-		int randomIndex = random.nextInt(students.length);
-		System.out.println(students[randomIndex].trim());
-	}
-
-	public static void addStudent(String data, String name) throws IOException {
-		BufferedWriter fileWriter = new BufferedWriter(
-				new FileWriter("students.txt", false));
-		Date date = new Date();
-		String dateFormate = "dd/mm/yyyy-hh:mm:ss a";
-		DateFormat dateFormat = new SimpleDateFormat(dateFormate);
-		String formateddate = dateFormat.format(date);
-		fileWriter.write(data + ", " + name + "\nList last updated on " + formateddate);
-		fileWriter.close();
-	}
-
-	public static void searchStudent(String[] students, String name) {
-		boolean find = false;
-		for (String student : students) {
-			if (student.trim().equals(name)) {
-				find = true;
-				break;
-			}
-		}
-		if (find == true) {
-			System.out.println("Found it!");
-		} else {
-			System.out.println("Can't found!");
-		}
-
-	}
-	public static void countStudent(String data){
-		String[] words=data.split("\\s+");
-		int wordCount=words.length;
-		System.out.println(wordCount + " word(s) found ");
-
 	}
 }
