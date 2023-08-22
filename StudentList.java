@@ -3,9 +3,16 @@ import java.text.*;
 import java.util.*;
 public class StudentList {
 	public static void main(String[] args) {
-
+		//Better termination
+            if(args.length==0){
+				System.out.println("please provide an argument!");
+				return;
+			}
 //		Check arguments
-		if(args[0].equals("a")) {
+         String option=args[0];
+		 switch(option){
+			case "a":
+		 
 			System.out.println("Loading data ...");			
 			try {
 			BufferedReader s = new BufferedReader(
@@ -16,9 +23,9 @@ public class StudentList {
 			for(String j : i) { System.out.println(j); }
 			} catch (Exception e){} 
 			System.out.println("Data Loaded.");
-		}
-		else if(args[0].equals("r")) 
-		{
+		break;
+		case "r":
+		
 			System.out.println("Loading data ...");			
 			try {
 			BufferedReader s = new BufferedReader(
@@ -32,8 +39,9 @@ public class StudentList {
 					System.out.println(i[y]);
 			} catch (Exception e){} 
 			System.out.println("Data Loaded.");			
-		}
-		else if(args[0].contains("+")){
+		break;
+		case "+":
+		        
 			System.out.println("Loading data ...");			
 			try {
 			BufferedWriter s = new BufferedWriter(
@@ -48,9 +56,9 @@ public class StudentList {
 			} catch (Exception e){}
 							
 			System.out.println("Data Loaded.");	
-		}
-		else if(args[0].contains("?")) 
-		{
+		break;
+		case "?":
+
 			System.out.println("Loading data ...");			
 			try {
 			BufferedReader s = new BufferedReader(
@@ -68,9 +76,8 @@ public class StudentList {
 			}
 			} catch (Exception e){} 
 			System.out.println("Data Loaded.");				
-		}
-		else if(args[0].contains("c")) 
-		{
+		break;
+		case "c":
 			System.out.println("Loading data ...");			
 			try {
 			BufferedReader s = new BufferedReader(
@@ -90,6 +97,10 @@ public class StudentList {
 			System.out.println(count +" word(s) found " + a.length);
 			} catch (Exception e){} 
 			System.out.println("Data Loaded.");				
-		}
+		break;
+		default:
+		System.out.println("Sorry invalid argument!");
+		break;
+	}
 	}
 }
