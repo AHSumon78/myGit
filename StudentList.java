@@ -20,21 +20,7 @@ public class StudentList {
 					printAllStudent(students);
 					break;
 				case "r":
-
-					System.out.println("Loading data ...");
-					try {
-						BufferedReader s = new BufferedReader(
-								new InputStreamReader(
-										new FileInputStream("students.txt")));
-						String r = s.readLine();
-						System.out.println(r);
-						String i[] = r.split(",");
-						Random x = new Random();
-						int y = x.nextInt();
-						System.out.println(i[y]);
-					} catch (Exception e) {
-					}
-					System.out.println("Data Loaded.");
+					 randomStudent(students);
 					break;
 				case "+":
 
@@ -122,5 +108,10 @@ public class StudentList {
 		for (String student : students) {
 			System.out.println(student.trim());
 		}
+	}
+	public static void randomStudent(String[] students){
+		Random random = new Random();
+		int randomIndex=random.nextInt(students.length);
+		System.out.println(students[randomIndex]);
 	}
 }
