@@ -23,34 +23,20 @@ public class StudentList {
 					randomStudent(students);
 					break;
 				case "+":
-				if(args.length<2)
-				{
-					System.out.println("please provide a student name!");
-					System.out.println("Data Loaded.");
-					return;
-				}
-					addStudent(data,args[1]);
+					if (args.length < 2) {
+						System.out.println("please provide a student name!");
+						System.out.println("Data Loaded.");
+						return;
+					}
+					addStudent(data, args[1]);
 					break;
 				case "?":
-
-					System.out.println("Loading data ...");
-					try {
-						BufferedReader s = new BufferedReader(
-								new InputStreamReader(
-										new FileInputStream("students.txt")));
-						String r = s.readLine();
-						String i[] = r.split(",");
-						boolean done = false;
-						String t = args[0].substring(1);
-						for (int idx = 0; idx < i.length && !done; idx++) {
-							if (i[idx].equals(t)) {
-								System.out.println("We found it!");
-								done = true;
-							}
-						}
-					} catch (Exception e) {
+					if (args.length < 2) {
+						System.out.println("please provide a student name!");
+						System.out.println("Data Loaded.");
+						return;
 					}
-					System.out.println("Data Loaded.");
+					searchStudent(students, args[1]);
 					break;
 				case "c":
 					System.out.println("Loading data ...");
@@ -106,14 +92,31 @@ public class StudentList {
 		int randomIndex = random.nextInt(students.length);
 		System.out.println(students[randomIndex].trim());
 	}
-	public static void addStudent(String data,String name)throws IOException {
-			BufferedWriter fileWriter = new BufferedWriter(
-					new FileWriter("students.txt", false));
-			Date date = new Date();
-			String dateFormate = "dd/mm/yyyy-hh:mm:ss a";
-			DateFormat dateFormat = new SimpleDateFormat(dateFormate);
-			String formateddate = dateFormat.format(date);
-			fileWriter.write(data+", " + name + "\nList last updated on " + formateddate);
-			fileWriter.close();
+
+	public static void addStudent(String data, String name) throws IOException {
+		BufferedWriter fileWriter = new BufferedWriter(
+				new FileWriter("students.txt", false));
+		Date date = new Date();
+		String dateFormate = "dd/mm/yyyy-hh:mm:ss a";
+		DateFormat dateFormat = new SimpleDateFormat(dateFormate);
+		String formateddate = dateFormat.format(date);
+		fileWriter.write(data + ", " + name + "\nList last updated on " + formateddate);
+		fileWriter.close();
+	}
+
+	public static void searchStudent(String[] students, String name) {
+		boolean find = false;
+		for (String student : students) {
+			if (student.trim().equals(name)) {
+				find = true;
+				break;
+			}
+		}
+		if (find == true) {
+			System.out.println("Found it!");
+		} else {
+			System.out.println("Can't found!");
+		}
+
 	}
 }
