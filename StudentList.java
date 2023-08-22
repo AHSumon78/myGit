@@ -20,25 +20,16 @@ public class StudentList {
 					printAllStudent(students);
 					break;
 				case "r":
-					 randomStudent(students);
+					randomStudent(students);
 					break;
 				case "+":
-
-					System.out.println("Loading data ...");
-					try {
-						BufferedWriter s = new BufferedWriter(
-								new FileWriter("students.txt", true));
-						String t = args[0].substring(1);
-						Date d = new Date();
-						String df = "dd/mm/yyyy-hh:mm:ss a";
-						DateFormat dateFormat = new SimpleDateFormat(df);
-						String fd = dateFormat.format(d);
-						s.write(", " + t + "\nList last updated on " + fd);
-						s.close();
-					} catch (Exception e) {
-					}
-
+				if(args.length<2)
+				{
+					System.out.println("please provide a student name!");
 					System.out.println("Data Loaded.");
+					return;
+				}
+					addStudent(data,args[1]);
 					break;
 				case "?":
 
@@ -109,9 +100,20 @@ public class StudentList {
 			System.out.println(student.trim());
 		}
 	}
-	public static void randomStudent(String[] students){
+
+	public static void randomStudent(String[] students) {
 		Random random = new Random();
-		int randomIndex=random.nextInt(students.length);
-		System.out.println(students[randomIndex]);
+		int randomIndex = random.nextInt(students.length);
+		System.out.println(students[randomIndex].trim());
+	}
+	public static void addStudent(String data,String name)throws IOException {
+			BufferedWriter fileWriter = new BufferedWriter(
+					new FileWriter("students.txt", false));
+			Date date = new Date();
+			String dateFormate = "dd/mm/yyyy-hh:mm:ss a";
+			DateFormat dateFormat = new SimpleDateFormat(dateFormate);
+			String formateddate = dateFormat.format(date);
+			fileWriter.write(data+", " + name + "\nList last updated on " + formateddate);
+			fileWriter.close();
 	}
 }
