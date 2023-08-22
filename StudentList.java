@@ -39,29 +39,7 @@ public class StudentList {
 					searchStudent(students, args[1]);
 					break;
 				case "c":
-					System.out.println("Loading data ...");
-					try {
-						BufferedReader s = new BufferedReader(
-								new InputStreamReader(
-										new FileInputStream("students.txt")));
-						String D = s.readLine();
-						char a[] = D.toCharArray();
-						boolean in_word = false;
-						int count = 0;
-						for (char c : a) {
-							if (c == ' ') {
-								if (!in_word) {
-									count++;
-									in_word = true;
-								} else {
-									in_word = false;
-								}
-							}
-						}
-						System.out.println(count + " word(s) found " + a.length);
-					} catch (Exception e) {
-					}
-					System.out.println("Data Loaded.");
+					countStudent(data);
 					break;
 				default:
 					System.out.println("Sorry invalid argument!");
@@ -117,6 +95,12 @@ public class StudentList {
 		} else {
 			System.out.println("Can't found!");
 		}
+
+	}
+	public static void countStudent(String data){
+		String[] words=data.split("\\s+");
+		int wordCount=words.length;
+		System.out.println(wordCount + " word(s) found ");
 
 	}
 }
